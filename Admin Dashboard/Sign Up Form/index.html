@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee For You</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap" rel="stylesheet">
+</head>
+<body>
+    <aside class="banner"></aside>
+    <section class="main">
+        <div class="text-wrapper">
+                <h1>Pine Coffee</h1>
+                <h2>Create a new account</h2>
+                <span>Already have an account?<a href="#"> Sign in</a></span>
+            </div>
+       
+        <section class="wrapper">
+            <form action="">
+                <section class="inputs">
+                    <input name="first-name" type="text" id="first-name" class="name" placeholder="First Name" required>
+                    <input name="last-name" type="text" id="last-name" class="name" placeholder="Last Name" required>
+                    <input name="email" type="email" id="email" class="email" placeholder="Email" pattern=".+@gmail\.com" title="Please provide only a gmail e-mail address" required>
+                    <input name="tel" type="tel" id="number" class="number" placeholder="Phone Number">
+                    <input name="pass"  type="password" id="password" class="password" minlength="5" placeholder="Password" required>
+                    <input name="passCon" type="password"   id="confirm-password" class="passwordConfirm" minlength="5"  placeholder="Confirm Password" required>
+                    <div class="error-wrapper">
+                        <div class="error--msg">Passwords do not match</div>
+                    </div>
+                </section>
+                <button type="button" class="submit" id="btn">Sign Up</button>
+            </form>
+        </section> 
+    </section>
+    <section class="welcome-wrapper">
+        <div class="text-wrapper">
+            <h1>Pine Coffee</h1>
+        </div>
+        <section class="welcome-text">
+            <h1>A Hot Cuppa is right around the corner.</h1>
+        </section>
+    </section>
+</body>
+</html>
+
