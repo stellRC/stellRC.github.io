@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library App</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <header class="header__site">
+            <div class="site--title">
+               <h1>myReads</h1>
+            </div>
+            <nav class="site--nav">
+                <ul>
+                    <li class="icon">
+                        <a href="https://twitter.com/Yoda_bells">
+                            <img src="img/twitter.png" alt="Twitter">
+                        </a>
+                    </li>
+                    <li class="icon"> 
+                        <a href="https://github.com/stellRC/my-reads">
+                            <img src="img/github.png" alt="Github">
+                        </a>
+                    </li>
+                    <li class="icon">
+                        <a href="https://www.linkedin.com/in/stella-arce-014255122/">
+                            <img src="img/linkedin.png" alt="Linkedin">
+                        </a>
+                    </li>
+                    <li class="icon">
+                        <img class="icon--profile" src="img/fox.jpg" alt="Profile Picture">
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <section class="main">
+            <aside class="sidebar">
+                <ul>
+                    <li>
+                        <h3>Bookshelf</h3>
+                    </li>
+                    <li>
+                        <label for="all">All</label>
+                        <input type="number" name="count" id="countAll" value="1" readonly>
+                    </li>
+                    <li>
+                        <label for="finished">Finished</label>
+                        <input type="number" name="count" id="countFinished" value="1" readonly>
+                    </li>
+                    <li>
+                        <label for="current">Current</label>
+                        <input type="number" name="count" id="countCurrent" value="0" readonly>
+                    </li>
+                    <li>
+                        <label for="wantTo">Want To</label>
+                        <input type="number" name="count" id="countWant" value="0"  step="1" readonly>
+                    </li>
+                    <li>
+                        <button class="btn--add">Add</button>
+                    </li>
+                </ul>
+             
+            </aside>
+            <section class="main__container">
+                <header class="header__container">
+                    <div class="container--title">
+                        <h2>My Reads</h2>
+                    </div>
+                    <nav class="container--nav">
+                        <ul>
+                            <li>
+                                <form class="search-form" name="suggestedBookCard">
+                                    <input type="search" class="search suggested--search" placeholder="Search books">
+                                    <ul class="suggestions"></ul>
+                                </form>
+                            </li>
+                            <li class="switch--main">
+                                <span>Grid</span>
+                                <div class="switch__container">
+                                    <input type="checkbox" class="checkbox" id="switch">
+                                    <label class="switch" for="switch"></label>
+                                </div>
+                                <span>Table</span>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <section class="container__books">
+                    <ul class="card card--sample">
+                        <li class="card--title">Contact</li>
+                        <li class="author">Carl Sagan</li>
+                        <li class="pages">432</li>
+                        <li class="status">Finished</li>
+                        <li class="remove">
+                            <button class="btn btn--remove"></button>
+                            <button class="btn btn--edit"></button>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section class="pop-up removeBtn">
+                <form action="" class="pop-up--form" name="newBookCard" id="newBookCard" onsubmit="return false">
+                    <h2>Add New Title</h2>
+                    <ul class="form--list">
+                        <ul class="input--list">
+                            <li>
+                                <label for="title"></label>
+                                <input type="text" name="title" placeholder="Title">
+                            </li>
+                            <li>
+                                <label for="author"></label>
+                                <input type="text" name="author" placeholder="Author">
+                            </li>
+                            <li>
+                                <label for="pages"></label>
+                                <input type="number" name="pages" placeholder="Pages">
+                            </li>
+                        </ul>
+                        <li class="status--list">
+                            <label for="">Status</label>
+                            <div class="status__boxes">
+                                <ul>
+                                    <li>
+                                       
+                                        <input type="radio" name="status" value="Want To Read" >  
+                                        <label for="">Want To Read</label>
+                                    </li>
+                                    <li>
+                                        
+                                        <input type="radio" name="status" value="Current" >
+                                        <label for="">Currently Reading</label>
+                                    </li>
+                                    <li>
+                                        
+                                        <input type="radio" name="status" value="Finished" >
+                                        <label for="">Read</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="form--action">
+                        <input type="submit" class="book--submit">
+                    </div>
+                </form>
+            </section>
+        </section>
+    </main>
+</body>
+</html>
