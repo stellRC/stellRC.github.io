@@ -1,18 +1,52 @@
 const endpoint = 'https://raw.githubusercontent.com/benoitvallon/100-best-books/master/books.json';
 
+
+const addBtn = document.querySelector('.btn--add');
+const removeCard = document.querySelector('.btn--remove');
+const deleteBtn = document.querySelector('.btn--delete');
+
+const switchToggle = document.querySelector('.checkbox');
+const switchToggled = document.querySelector('input[type="checkbox"]:checked');
+
+const bookLibrary = document.querySelector('.container__books');
+const card = document.querySelector('.card');
+const submitNew = document.querySelector('.book--submit');
+
+const suggestionList = document.querySelector('.suggestions');
+const popUp = document.querySelector('.pop-up');
+const popUpForm = document.querySelector('.pop-up--form');
+const bookCard = document.getElementById('newBookCard');
+const cardContent = document.querySelector('card__content');
+
+const newBookTitle = document.querySelector('.new-book--title');
+const newBookAuthor = document.querySelector('.new-book--author');
+const newBookPages = document.querySelector('.new-book--pages');
+
+
+
+const countAll = document.getElementById('countAll');
+const countFinished = document.getElementById('countFinished');
+const countCurrent = document.getElementById('countCurrent');
+const countWant = document.getElementById('countWant');
+
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+const searchForm = document.querySelector('.search-form');
+const submitSuggestedButtons = document.querySelectorAll('.book__suggested--submit');
+const containerNav = document.querySelector('.container--nav');
+
 const bookName = [];
 
 fetch(endpoint)
     .then(blob => blob.json())
     .then(data => bookName.push(...data));
-console.log(endpoint)
-console.log(bookName)
 
 
 function findMatches(wordToMatch, bookName) {
 return bookName.filter(results => {
-    const regex = new RegExp(wordToMatch, 'gi')
-    return results.title.match(regex) 
+    const regex = new RegExp(wordToMatch, 'gi');
+    return results.title.match(regex);
 })
 }
 
@@ -21,62 +55,59 @@ return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 function displayMatches() {
-const matchArray = findMatches(this.value, bookName)
+const matchArray = findMatches(this.value, bookName);
 const html = matchArray.map(results => {
     const regex = new RegExp(this.value, 'gi');
-    const bookTitle = results.title.replace(regex, `<span class="hl">${this.value}</span>`)
+    const bookTitle = results.title.replace(regex, `<span class="hl">${this.value}</span>`);
     return `
     <ul class="suggestion--list">
         <input type="text" name="title" placeholder="Title" value="${results.title}" readonly>
-        <input type="text" name="author" placeholder="Title" value="${results.author}" readonly>
-        <input type="text" name="pages" placeholder="Title" value="${results.pages}" readonly>
-        <img src="https://github.com/stellRC/100-best-books/tree/master/static/images/${results.imageLink}" alt="">
+        <input type="text" name="author" placeholder="Author" value="${results.author}" readonly>
+        <input type="text" name="pages" placeholder="Pages" value="${results.pages}" readonly>
+         <li>
+             <button class="btn book__suggested--submit">Submit</button>
+         </li>
     </ul>
     `
 }).join('');
-suggestions.innerHTML = html;
+
+    suggestions.innerHTML = html;
 }
 
-const searchInput = document.querySelector('.search');
-const suggestions = document.querySelector('.suggestions');
+function clearSearch(e) {
+    e.preventDefault();
 
-searchInput.addEventListener('change', displayMatches)
-searchInput.addEventListener('keyup', displayMatches)
-
- // <input type="submit" class="book__suggested--submit">
-//       // <li>
-        //     <button class="btn book__suggested--submit">Submit</button>
-        // </li>
-
-// Not API
+    while (suggestions.lastElementChild) {
+        suggestions.removeChild(suggestions.lastElementChild);
+      }
+}
 
 
-const addBtn = document.querySelector('.btn--add')
-const removeCard = document.querySelector('.btn--remove')
-const deleteBtn = document.querySelector('.btn--delete')
 
-const switchToggle = document.querySelector('.checkbox')
-const switchToggled = document.querySelector('input[type="checkbox"]:checked')
 
-const bookLibrary = document.querySelector('.container__books')
-const card = document.querySelector('.card')
-const submitNew = document.querySelector('.book--submit')
-const submitSuggestedButtons = document.querySelectorAll('.book__suggested--submit')
-const suggestionList = document.querySelector('.suggestions')
-const popUp = document.querySelector('.pop-up')
-const popUpForm = document.querySelector('.pop-up--form')
-const bookCard = document.getElementById('newBookCard')
-const cardContent = document.querySelector('card__content')
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+searchInput.addEventListener('search', clearSearch);
 
-const containerNav = document.querySelector('.container--nav')
+suggestions.addEventListener('click', function(e) {
 
-const countAll = document.getElementById('countAll')
-const countFinished = document.getElementById('countFinished')
-const countCurrent = document.getElementById('countCurrent')
-const countWant = document.getElementById('countWant')
+    popUp.classList.toggle('removeBtn')
 
-const suggestedSearch = document.querySelector('.suggested--search')
-const resetForm = document.querySelector('.reset--form')
+    book.title = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.value;
+    book.author = e.target.parentElement.previousElementSibling.previousElementSibling.value;
+    book.pages = e.target.parentElement.previousElementSibling.value;
+    book.status = book.status;
+
+    newBookTitle.value = book.title;
+    newBookAuthor.value = book.author;
+    newBookPages.value = book.pages;
+   
+    while (suggestions.lastElementChild) {
+        suggestions.removeChild(suggestions.lastElementChild);
+      }
+    searchForm.reset()
+})
+
 
 const book = new Book()
 
@@ -134,7 +165,7 @@ submitNew.addEventListener('click', function() {
 
 function addBookToLibrary() {
    
-    popUp.classList.toggle('removeBtn')
+    popUp.classList.toggle('removeBtn');
    
     book.title = newBookCard.title.value;
     book.author = newBookCard.author.value;
@@ -149,20 +180,20 @@ function addBookToLibrary() {
     newTitle.className = 'card--title';
     newTitle.innerHTML = book.title;
 
-    let newAuthor = document.createElement('li')
-    newAuthor.className = 'author'
+    let newAuthor = document.createElement('li');
+    newAuthor.className = 'author';
     newAuthor.innerHTML = book.author;
 
-    let newPages = document.createElement('li')
-    newPages.className = 'pages'
+    let newPages = document.createElement('li');
+    newPages.className = 'pages';
     newPages.innerHTML = book.pages;
 
-    let newRead = document.createElement('li')
-    newRead.className = 'read'
+    let newRead = document.createElement('li');
+    newRead.className = 'read';
     newRead.innerHTML = book.status;
     
-    let newRemove = document.createElement('li')
-    newRemove.className = 'remove'
+    let newRemove = document.createElement('li');
+    newRemove.className = 'remove';
 
     let newBtnRemove = document.createElement('button');
     newBtnRemove.className = 'btn btn--remove';
@@ -170,7 +201,7 @@ function addBookToLibrary() {
     let newBtnEdit = document.createElement('button');
     newBtnEdit.className = 'btn btn--edit';
 
-    newCard.appendChild(newTitle)
+    newCard.appendChild(newTitle);
     newCard.appendChild(newAuthor);
     newCard.appendChild(newPages);
     newCard.appendChild(newRead);
@@ -180,27 +211,28 @@ function addBookToLibrary() {
     bookLibrary.appendChild(newCard);
 }
 
-function closeSearch() {
-  suggestions.classList.toggle('removeBtn')
-   console.log(this)
-   console.log(suggestionList)
-}
 
 
 function createBook() {
     popUp.classList.toggle('removeBtn');
     popUpForm.reset();
+
+    while (suggestions.lastElementChild) {
+        suggestions.removeChild(suggestions.lastElementChild);
+      }
+    searchForm.reset()
+
 }
 
 function changeDisplay() {
-    bookLibrary.classList.toggle('change--display')
+    bookLibrary.classList.toggle('change--display');
 }
 
 // Use bubbling event listeners for dynamically created elements
 
 bookLibrary.addEventListener('click', function (e) {
     if (e.target.classList.contains('btn--remove')) {
-                e.target.parentElement.parentElement.classList.add('removeBtn')
+                e.target.parentElement.parentElement.classList.add('removeBtn');
 
                 if ( e.target.parentElement.previousElementSibling.innerHTML === "Want To Read") {
                     countWant.value--;
@@ -215,8 +247,8 @@ bookLibrary.addEventListener('click', function (e) {
                  }
             }
             if (e.target.classList.contains('btn--edit')) {
-                e.target.parentElement.parentElement.classList.add('removeBtn')
-                popUp.classList.toggle('removeBtn')
+                e.target.parentElement.parentElement.classList.add('removeBtn');
+                popUp.classList.toggle('removeBtn');
                 if ( e.target.parentElement.previousElementSibling.innerHTML === "Want To Read") {
                     countWant.value--;
                     countAll.value--;
@@ -235,14 +267,3 @@ bookLibrary.addEventListener('click', function (e) {
 submitNew.addEventListener('click', addBookToLibrary)
 addBtn.addEventListener('click', createBook)
 switchToggle.addEventListener('click', changeDisplay)
-
-// submitSuggestedButtons.forEach(submitSuggestedButton =>submitSuggestedButton.addEventListener('click', function() {
-//     e.prev
-//     console.log(suggestedBook.title.value)
-// ))}
-
-
-
-suggestedSearch.addEventListener('search', closeSearch)
-
-// submitSuggestedButtons.addEventListener('click', addSuggestedBookToLibrary)
